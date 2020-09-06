@@ -1,0 +1,50 @@
+{
+  "name": "cpp-merge",
+  "version": "0.1.0",
+  "description": "Tool to produce single source file from multiple C/C++ files",
+  "main": "dist/cli.js",
+  "types": "dist/cli.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:RandomVoid/cpp-merge.git"
+  },
+  "author": "RandomVoid",
+  "license": "MIT",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "lint": "eslint . --ext .ts",
+    "test": "jest --config jestconfig.json --coverage"
+  },
+  "bin": {
+    "cpp-merge": "dist/cli.js"
+  },
+  "dependencies": {
+    "node": "^14.8.0",
+    "node-getopt": "^0.3.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.13",
+    "@types/node": "^14.6.4",
+    "@types/node-getopt": "^0.2.31",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
+    "eslint": "^7.8.1",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.3.0",
+    "typescript": "^4.0.2"
+  },
+  "keywords": [
+    "c",
+    "c++",
+    "cpp",
+    "hpp",
+    "merge",
+    "singe",
+    "source",
+    "file"
+  ]
+}
