@@ -5,6 +5,9 @@ import {EOL} from "os";
 import CppFileParser from "./CppFileParser";
 import {removeDoubleEmptyLines} from "./utils";
 
+const headerFileExtensions = [".h", ".hpp"];
+const sourceFileExtensions = [".c", ".cpp"];
+
 export default class CppFileMerger {
     private readonly parser = new CppFileParser();
     private readonly includeDirectories: string[];
@@ -84,14 +87,17 @@ export default class CppFileMerger {
         this.processedOnce.forEach(filePath => {
             const fileName = path.basename(filePath);
             const extension = path.extname(fileName);
-            if (extension !== ".hpp") {
+            if (!headerFileExtensions.find(headerFileExtension => headerFileExtension === extension)) {
                 return;
             }
+
             const fileNameWithoutExtension = fileName.substr(0, fileName.length - extension.length);
-            const sourceFileName = `${fileNameWithoutExtension}.cpp`;
-            const sourceFileContent = this.parseSourceFile(sourceFileName, currentDirectory);
-            if (sourceFileContent) {
-                contents.push(sourceFileContent);
+            for (const sourceFileExtension of sourceFileExtensions) {
+                const sourceFileName = `${fileNameWithoutExtension}${sourceFileExtension}`;
+                const sourceFileContent = this.parseSourceFile(sourceFileName, currentDirectory);
+                if (sourceFileContent) {
+                    contents.push(sourceFileContent);
+                }
             }
         });
 
