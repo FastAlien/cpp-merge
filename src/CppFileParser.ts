@@ -1,3 +1,5 @@
+import {EOL} from "os";
+
 export type ParseResult = {
     processOnce: boolean;
     localIncludes: string[];
@@ -11,7 +13,7 @@ export default class CppFileParser {
     private static readonly pragmaOnceRegExp  = /^#pragma once/;
 
     public parse(fileContent: string): ParseResult {
-        const fileLines = fileContent.split("\n");
+        const fileLines = fileContent.split(EOL);
         const content: string[] = [];
         const systemIncludes = new Set<string>();
         const localIncludes = new Set<string>();
@@ -49,7 +51,7 @@ export default class CppFileParser {
             processOnce: pragmaOnceFound,
             localIncludes: Array.from(localIncludes.values()),
             systemIncludes: Array.from(systemIncludes.values()),
-            content: content.join("\n")
+            content: content.join(EOL)
         };
     }
 }

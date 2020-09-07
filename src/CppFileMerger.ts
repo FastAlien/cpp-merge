@@ -1,5 +1,6 @@
 import path from "path";
 import fs from "fs";
+import {EOL} from "os";
 
 import CppFileParser from "./CppFileParser";
 import {removeDoubleEmptyLines} from "./utils";
@@ -24,13 +25,13 @@ export default class CppFileMerger {
         const systemIncludesContent = Array.from(this.systemIncludes.values())
             .sort((a, b) => a.localeCompare(b))
             .map(file => `#include <${file}>`)
-            .join("\n");
+            .join(EOL);
 
         const finalContent = [
             systemIncludesContent,
             content,
             sourceFilesContent
-        ].join("\n");
+        ].join(EOL);
 
         return removeDoubleEmptyLines(finalContent);
     }
@@ -58,7 +59,7 @@ export default class CppFileMerger {
         return [
             ...localIncludesContent,
             result.content
-        ].join("\n");
+        ].join(EOL);
     }
 
     private parseIncludedFile(filePath: string, currentDirectory: string): string {
@@ -94,7 +95,7 @@ export default class CppFileMerger {
             }
         });
 
-        return contents.join("\n");
+        return contents.join(EOL);
     }
 
     private parseSourceFile(fileName: string, currentDirectory: string): string | undefined {
