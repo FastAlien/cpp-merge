@@ -519,6 +519,11 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@types/argparse@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/argparse/-/argparse-2.0.0.tgz#df1bb55f4c3bbbb3c744a6b35f78a401d3283a89"
+  integrity sha512-FFW98gJUgUWGq7ZMd0gJmNRoOPqAaq9oiNqfc/RM6+C5BZKHHuHTwvlU5hrOULIXEfZz3rhw9jakwYe6cqNv3Q==
+
 "@types/babel__core@^7.0.0", "@types/babel__core@^7.1.7":
   version "7.1.9"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.9.tgz#77e59d438522a6fb898fa43dc3455c6e72f3963d"
@@ -603,11 +608,6 @@
   version "7.0.6"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.6.tgz#f4c7ec43e81b319a9815115031709f26987891f0"
   integrity sha512-3c+yGKvVP5Y9TYBEibGNR+kLtijnj7mYrXRg+WpFb2X9xm04g/DXYkfg4hmzJQosc9snFNUPkbYIhu+KAm6jJw==
-
-"@types/node-getopt@^0.2.31":
-  version "0.2.31"
-  resolved "https://registry.yarnpkg.com/@types/node-getopt/-/node-getopt-0.2.31.tgz#4e6dba36e85cbaf4522151f74951b10540bb5548"
-  integrity sha512-yicC07+3QgBYZvPqaSjKZMtswzanF3bXJz+mi+za23favRjPTOeZ8ZAXydzttb+IHh6/zevhYMZNHnG9E2pRhw==
 
 "@types/node@*", "@types/node@^14.6.4":
   version "14.6.4"
@@ -808,6 +808,11 @@ argparse@^1.0.7:
   integrity sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==
   dependencies:
     sprintf-js "~1.0.2"
+
+argparse@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/argparse/-/argparse-2.0.1.tgz#246f50f3ca78a3240f6c997e8a9bd1eac49e4b38"
+  integrity sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==
 
 arr-diff@^4.0.0:
   version "4.0.0"
@@ -2933,11 +2938,6 @@ node-bin-setup@^1.0.0:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/node-bin-setup/-/node-bin-setup-1.0.6.tgz#4b5c9bb937ece702d7069b36ca78af4684677528"
   integrity sha512-uPIxXNis1CRbv1DwqAxkgBk5NFV3s7cMN/Gf556jSw6jBvV7ca4F9lRL/8cALcZecRibeqU+5dFYqFFmzv5a0Q==
-
-node-getopt@^0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/node-getopt/-/node-getopt-0.3.2.tgz#57507cd22f6f69650aa99252304a842f1224e44c"
-  integrity sha512-yqkmYrMbK1wPrfz7mgeYvA4tBperLg9FQ4S3Sau3nSAkpOA0x0zC8nQ1siBwozy1f4SE8vq2n1WKv99r+PCa1Q==
 
 node-int64@^0.4.0:
   version "0.4.0"

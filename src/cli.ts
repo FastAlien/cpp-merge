@@ -1,39 +1,46 @@
 #!/usr/bin/env node
+import fs from "fs";
+import {ArgumentParser} from "argparse";
 import CppFileMerger from "./CppFileMerger";
-import GetOpt from "node-getopt";
 
-enum ExitCode {
-    NO_MAIN_CPP = 1
-}
-
-const options = GetOpt.create([
-    ["h", "help", "Display help text"],
-    ["i", "include=DIR", "Directory containing header files"],
-    ["s", "source=DIR", "Directory containing source files"],
-    ["m", "main=FILE", "Main cpp file"]
-]).bindHelp();
-
-const parsedOptions = options.parseSystem();
-
-function getOption(key: string): string | undefined {
-    const value = parsedOptions.options[key];
-    if (typeof value === "string") {
-        return value;
-    }
-}
-
-const filePath = getOption("m");
-if (!filePath) {
-    options.showHelp();
-    process.exit(ExitCode.NO_MAIN_CPP);
-}
-
-const includeDirectory = getOption("i");
-const sourceDirectory = getOption("s");
-
-const fileMerger = new CppFileMerger({
-    includeDirectory: includeDirectory,
-    sourceDirectory: sourceDirectory
+const parser = new ArgumentParser({
+    prog: "cpp-merge",
+    description: "A tool to produce single file from multiple C/C++ files.",
+    add_help: true
 });
+
+parser.add_argument('file', {
+    help: "Source file",
+    metavar: "<file>"
+});
+
+parser.add_argument('-i', '--include', {
+    help: "Directory containing header files",
+    metavar: "<directory>"
+});
+
+parser.add_argument('-s', '--source', {
+    help: "Directory containing source files",
+    metavar: "<directory>"
+});
+
+const {file: filePath, include: includeDirectory, source: sourceDirectory} = parser.parse_args();
+
+if (!fs.existsSync(filePath)) {
+    console.error(`Source file "${filePath}" not found.`);
+    process.exit(1);
+}
+
+if (includeDirectory && !fs.existsSync(includeDirectory)) {
+    console.error(`Include directory "${includeDirectory}" not found.`);
+    process.exit(1);
+}
+
+if (sourceDirectory && !fs.existsSync(sourceDirectory)) {
+    console.error(`Source directory "${sourceDirectory}" not found.`);
+    process.exit(1);
+}
+
+const fileMerger = new CppFileMerger({includeDirectory, sourceDirectory});
 const content = fileMerger.merge(filePath);
 console.log(content);

@@ -23,13 +23,13 @@
     "cpp-merge": "dist/cli.js"
   },
   "dependencies": {
-    "node": "^14.8.0",
-    "node-getopt": "^0.3.2"
+    "argparse": "^2.0.1",
+    "node": "^14.8.0"
   },
   "devDependencies": {
+    "@types/argparse": "^2.0.0",
     "@types/jest": "^26.0.13",
     "@types/node": "^14.6.4",
-    "@types/node-getopt": "^0.2.31",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "eslint": "^7.8.1",
