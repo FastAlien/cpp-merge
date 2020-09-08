@@ -42,5 +42,5 @@ if (sourceDirectory && !fs.existsSync(sourceDirectory)) {
 }
 
 const fileMerger = new CppFileMerger({includeDirectory, sourceDirectory});
-const content = fileMerger.merge(filePath);
+const content = fileMerger.parse(filePath);
 console.log(content);

@@ -20,7 +20,7 @@ export default class CppFileMerger {
         this.sourceDirectory = params.sourceDirectory ? path.resolve(params.sourceDirectory) : undefined;
     }
 
-    public merge(filePath: string): string {
+    public parse(filePath: string): string {
         this.reset();
         const content = this.parseFile(filePath);
         const currentDirectory = path.dirname(filePath);

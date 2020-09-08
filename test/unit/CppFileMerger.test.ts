@@ -5,7 +5,7 @@ describe("Parsing source file with missing include file", () => {
     const merger = new CppFileMerger();
 
     test("Error is thrown", () => {
-        expect(() => merger.merge("test/data/missingInclude/main.cpp"))
+        expect(() => merger.parse("test/data/missingInclude/main.cpp"))
             .toThrowError("Include file not found hello.hpp");
     });
 });
@@ -15,7 +15,7 @@ describe("Merging complex source file", () => {
         includeDirectory: "test/data/complex/include",
         sourceDirectory: "test/data/complex/src"
     });
-    const content = merger.merge("test/data/complex/main.cpp");
+    const content = merger.parse("test/data/complex/main.cpp");
 
     test("Generated content equals expected", () => {
         const expected = fs.readFileSync("test/data/complex/expected.cpp", "utf-8");
