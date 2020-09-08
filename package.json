@@ -20,7 +20,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "test": "jest --config jestconfig.json --coverage",
+    "test": "jest --coverage --coverageReporters=text",
     "prepare": "yarn build",
     "prepublishOnly": "yarn lint && yarn test"
   },
