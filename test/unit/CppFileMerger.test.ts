@@ -11,14 +11,15 @@ describe("Parsing source file with missing include file", () => {
 });
 
 describe("Merging complex source file", () => {
+    const dataDirectory = "test/data/complex";
     const merger = new CppFileMerger({
-        includeDirectory: "test/data/complex/include",
-        sourceDirectory: "test/data/complex/src"
+        includeDirectory: `${dataDirectory}/include`,
+        sourceDirectory: `${dataDirectory}/src`
     });
-    const content = merger.parse("test/data/complex/main.cpp");
+    const content = merger.parse(`${dataDirectory}/main.cpp`);
 
     test("Generated content equals expected", () => {
-        const expected = fs.readFileSync("test/data/complex/expected.cpp", "utf-8");
+        const expected = fs.readFileSync(`${dataDirectory}/expected.cpp`, "utf-8");
         expect(content).toEqual(expected);
     });
 });
