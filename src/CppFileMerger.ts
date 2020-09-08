@@ -3,7 +3,7 @@ import fs from "fs";
 import {EOL} from "os";
 
 import CppFileParser from "./CppFileParser";
-import {removeDoubleEmptyLines} from "./utils";
+import {findFile, removeDoubleEmptyLines} from "./utils";
 
 const headerFileExtensions = [".h", ".hpp"];
 const sourceFileExtensions = [".c", ".cpp"];
@@ -71,11 +71,20 @@ export default class CppFileMerger {
             searchFilePaths.push(this.includeDirectory);
         }
 
-        throw new Error(`Include file not found ${filePath}`);
+        const foundFilePath = findFile(filePath, searchFilePaths);
+        if (!foundFilePath) {
+            throw new Error(`Include file not found ${filePath}`);
+        }
+
+        return this.parseFile(foundFilePath);
     }
 
     private parseSourceFiles(currentDirectory: string): string {
         const contents: string[] = [];
+        const searchDirectories: string[] = [currentDirectory];
+        if (this.sourceDirectory) {
+            searchDirectories.push(this.sourceDirectory);
+        }
 
         this.processedOnce.forEach(filePath => {
             const fileName = path.basename(filePath);
@@ -87,7 +96,12 @@ export default class CppFileMerger {
             const fileNameWithoutExtension = fileName.substr(0, fileName.length - extension.length);
             for (const sourceFileExtension of sourceFileExtensions) {
                 const sourceFileName = `${fileNameWithoutExtension}${sourceFileExtension}`;
-                const sourceFileContent = this.parseSourceFile(sourceFileName, currentDirectory);
+                const foundFilePath = findFile(sourceFileName, searchDirectories);
+                if (!foundFilePath) {
+                    continue;
+                }
+
+                const sourceFileContent = this.parseFile(foundFilePath);
                 if (sourceFileContent) {
                     contents.push(sourceFileContent);
                 }
@@ -95,20 +109,5 @@ export default class CppFileMerger {
         });
 
         return contents.join(EOL);
-    }
-
-    private parseSourceFile(fileName: string, currentDirectory: string): string | undefined {
-        const searchFilePaths: string[] = [currentDirectory];
-
-        if (this.sourceDirectory) {
-            searchFilePaths.push(this.sourceDirectory);
-        }
-
-        for (const searchFilePath of searchFilePaths) {
-            const sourceFilePath = path.resolve(searchFilePath, fileName);
-            if (fs.existsSync(sourceFilePath)) {
-                return this.parseFile(sourceFilePath);
-            }
-        }
     }
 }
