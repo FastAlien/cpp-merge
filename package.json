@@ -16,9 +16,10 @@
   ],
   "scripts": {
     "build": "tsc",
-    "prepare": "npm run build",
     "lint": "eslint . --ext .ts",
-    "test": "jest --config jestconfig.json --coverage"
+    "test": "jest --config jestconfig.json --coverage",
+    "prepare": "yarn build",
+    "prepublishOnly": "yarn lint && yarn test"
   },
   "bin": {
     "cpp-merge": "dist/cli.js"
