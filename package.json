@@ -21,8 +21,7 @@
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "test": "jest --coverage --coverageReporters=text",
-    "prepare": "yarn build",
-    "prepublishOnly": "yarn lint && yarn test"
+    "prepublishOnly": "yarn build && chmod +x lib/cli.js && yarn lint && yarn test"
   },
   "bin": {
     "cpp-merge": "lib/cli.js"
