@@ -10,13 +10,13 @@ const sourceFileExtensions = [".c", ".cpp"];
 
 export default class CppFileMerger {
     private readonly parser = new CppFileParser();
-    private readonly includeDirectories: string[];
+    private readonly includeDirectory: string | undefined;
     private readonly sourceDirectory: string | undefined;
     private readonly systemIncludes = new Set<string>();
     private readonly processedOnce = new Set<string>();
 
     public constructor(params: { includeDirectory?: string, sourceDirectory?: string } = {}) {
-        this.includeDirectories = params.includeDirectory ? [path.resolve(params.includeDirectory)] : [];
+        this.includeDirectory = params.includeDirectory ? path.resolve(params.includeDirectory) : undefined;
         this.sourceDirectory = params.sourceDirectory ? path.resolve(params.sourceDirectory) : undefined;
     }
 
@@ -66,16 +66,9 @@ export default class CppFileMerger {
     }
 
     private parseIncludedFile(filePath: string, currentDirectory: string): string {
-        const searchFilePaths: string[] = [
-            currentDirectory,
-            ...this.includeDirectories
-        ];
-
-        for (const searchFilePath of searchFilePaths) {
-            const includeFilePath = path.resolve(searchFilePath, filePath);
-            if (fs.existsSync(includeFilePath)) {
-                return this.parseFile(includeFilePath);
-            }
+        const searchFilePaths: string[] = [currentDirectory];
+        if (this.includeDirectory) {
+            searchFilePaths.push(this.includeDirectory);
         }
 
         throw new Error(`Include file not found ${filePath}`);
