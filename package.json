@@ -1,19 +1,19 @@
 {
   "name": "cpp-merge",
   "version": "0.1.0",
-  "description": "Tool to produce single source file from multiple C/C++ files",
-  "main": "lib/cli.js",
-  "types": "lib/cli.d.ts",
+  "description": "Command line tool to produce single source file from multiple C/C++ files",
   "repository": {
     "type": "git",
     "url": "git@github.com:RandomVoid/cpp-merge.git"
   },
-  "homepage": "https://github.com/RandomVoid/cpp-merge#readme",
-  "author": "RandomVoid",
+  "homepage": "https://github.com/RandomVoid/cpp-merge",
+  "author": "RandomVoid (https://github.com/RandomVoid)",
   "license": "MIT",
   "files": [
     "lib/**/*"
   ],
+  "main": "lib/cli.js",
+  "types": "lib/cli.d.ts",
   "scripts": {
     "build": "tsc",
     "lint": "eslint . --ext .ts",
@@ -43,10 +43,10 @@
     "c",
     "c++",
     "cpp",
+    "file",
     "hpp",
     "merge",
-    "singe",
-    "source",
-    "file"
+    "single",
+    "source"
   ]
 }
