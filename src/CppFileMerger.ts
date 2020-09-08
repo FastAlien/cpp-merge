@@ -14,6 +14,7 @@ export default class CppFileMerger {
     private readonly sourceDirectory: string | undefined;
     private readonly systemIncludes = new Set<string>();
     private readonly processedOnce = new Set<string>();
+    private workingDirectory = "";
 
     public constructor(params: { includeDirectory?: string, sourceDirectory?: string } = {}) {
         this.includeDirectory = params.includeDirectory ? path.resolve(params.includeDirectory) : undefined;
@@ -21,10 +22,11 @@ export default class CppFileMerger {
     }
 
     public parse(filePath: string): string {
-        this.reset();
+        this.systemIncludes.clear();
+        this.processedOnce.clear();
+        this.workingDirectory = path.dirname(filePath);
         const content = this.parseFile(filePath);
-        const currentDirectory = path.dirname(filePath);
-        const sourceFilesContent = this.parseSourceFiles(currentDirectory);
+        const sourceFilesContent = this.parseSourceFiles();
         const systemIncludesContent = Array.from(this.systemIncludes.values())
             .sort((a, b) => a.localeCompare(b))
             .map(file => `#include <${file}>`)
@@ -37,11 +39,6 @@ export default class CppFileMerger {
         ].join(EOL);
 
         return removeDoubleEmptyLines(finalContent);
-    }
-
-    private reset() {
-        this.systemIncludes.clear();
-        this.processedOnce.clear();
     }
 
     private parseFile(filePath: string): string {
@@ -79,23 +76,23 @@ export default class CppFileMerger {
         return this.parseFile(foundFilePath);
     }
 
-    private parseSourceFiles(currentDirectory: string): string {
+    private parseSourceFiles(): string {
         const contents: string[] = [];
-        const searchDirectories: string[] = [currentDirectory];
+        const searchDirectories: string[] = [this.workingDirectory];
         if (this.sourceDirectory) {
             searchDirectories.push(this.sourceDirectory);
         }
 
         this.processedOnce.forEach(filePath => {
-            const fileName = path.basename(filePath);
-            const extension = path.extname(fileName);
+            const relativeFilePath = this.getHeaderRelativePath(filePath);
+            const extension = path.extname(relativeFilePath);
             if (!headerFileExtensions.find(headerFileExtension => headerFileExtension === extension)) {
                 return;
             }
 
-            const fileNameWithoutExtension = fileName.substr(0, fileName.length - extension.length);
+            const relativeFilePathWithoutExtension = relativeFilePath.substr(0, relativeFilePath.length - extension.length);
             for (const sourceFileExtension of sourceFileExtensions) {
-                const sourceFileName = `${fileNameWithoutExtension}${sourceFileExtension}`;
+                const sourceFileName = `${relativeFilePathWithoutExtension}${sourceFileExtension}`;
                 const foundFilePath = findFile(sourceFileName, searchDirectories);
                 if (!foundFilePath) {
                     continue;
@@ -109,5 +106,11 @@ export default class CppFileMerger {
         });
 
         return contents.join(EOL);
+    }
+
+    private getHeaderRelativePath(filePath: string) {
+        const fileDirectory = path.dirname(filePath);
+        const baseDirectory = this.includeDirectory && fileDirectory.startsWith(this.includeDirectory) ? this.includeDirectory : this.workingDirectory;
+        return path.relative(baseDirectory, filePath);
     }
 }

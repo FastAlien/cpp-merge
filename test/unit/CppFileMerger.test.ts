@@ -22,3 +22,17 @@ describe("Merging complex source file", () => {
         expect(content).toEqual(expected);
     });
 });
+
+describe("Merging source files in subdirectories", () => {
+    const dataDirectory = "test/data/sourceInSubdirectories";
+    const merger = new CppFileMerger({
+        includeDirectory: `${dataDirectory}/include`,
+        sourceDirectory: `${dataDirectory}/src`
+    });
+    const content = merger.parse(`${dataDirectory}/main.cpp`);
+
+    test("Generated content equals expected", () => {
+        const expected = fs.readFileSync(`${dataDirectory}/expected.cpp`, "utf-8");
+        expect(content).toEqual(expected);
+    });
+});
