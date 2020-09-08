@@ -8,6 +8,7 @@
     "type": "git",
     "url": "git@github.com:RandomVoid/cpp-merge.git"
   },
+  "homepage": "https://github.com/RandomVoid/cpp-merge#readme",
   "author": "RandomVoid",
   "license": "MIT",
   "files": [
