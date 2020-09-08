@@ -2,8 +2,8 @@
   "name": "cpp-merge",
   "version": "0.1.0",
   "description": "Tool to produce single source file from multiple C/C++ files",
-  "main": "dist/cli.js",
-  "types": "dist/cli.d.ts",
+  "main": "lib/cli.js",
+  "types": "lib/cli.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:RandomVoid/cpp-merge.git"
@@ -12,7 +12,7 @@
   "author": "RandomVoid",
   "license": "MIT",
   "files": [
-    "dist/**/*"
+    "lib/**/*"
   ],
   "scripts": {
     "build": "tsc",
@@ -22,7 +22,7 @@
     "prepublishOnly": "yarn lint && yarn test"
   },
   "bin": {
-    "cpp-merge": "dist/cli.js"
+    "cpp-merge": "lib/cli.js"
   },
   "dependencies": {
     "argparse": "^2.0.1",
