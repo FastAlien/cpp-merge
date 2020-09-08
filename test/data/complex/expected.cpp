@@ -1,49 +1,19 @@
-#include <algorithms>
+#include <algorithm>
 #include <array>
 #include <iostream>
 
-void fourthFunction();
+// zero.h
 
-void secondFunction();
+// first.hpp
 
-void thirdFunction();
+// second.hpp
 
-inline void firstFunction() {
-    std::cout << "First function called\n";
-    secondFunction();
-    thirdFunction();
-    fourthFunction();
-}
+// third.hpp
 
-int main(int argc, const char* argv[]) {
-    std::cout << "Main function called\n";
-    firstFunction();
-    return 0;
-}
+// main.cpp
 
-void fourthFunction() {
-    std::cout << "Fourth function called\n";
+// zero.c
 
-    const std::array<int, 3> numbers{1, 2, 3};
-    std::for_each(numbers.begin(), numbers.end(), [](const int number) {
-        std::cout << number << '\n';
-    });
-}
+// first.cpp
 
-void secondFunction() {
-    std::cout << "Second function called\n";
-
-    const std::array<int, 3> numbers{1, 2, 3};
-    std::for_each(numbers.begin(), numbers.end(), [](const int number) {
-        std::cout << number << '\n';
-    });
-}
-
-void thirdFunction() {
-    std::cout << "Third function called\n";
-
-    const std::array<int, 5> numbers{1, 2, 3, 4, 5};
-    std::for_each(numbers.begin(), numbers.end(), [](const int number) {
-        std::cout << number << '\n';
-    });
-}
+// second.cpp

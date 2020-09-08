@@ -1,3 +1,5 @@
 #pragma once
 
-void thirdFunction();
+#include "../second.hpp"
+
+// third.hpp

@@ -1,7 +1,7 @@
-#include "second.hpp"
+#include "first.hpp"
 
 #include <algorithm>
 #include <array>
 #include <iostream>
 
-// second.cpp
+// first.cpp

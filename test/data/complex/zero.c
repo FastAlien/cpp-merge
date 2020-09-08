@@ -1,7 +1,7 @@
-#include "second.hpp"
+#include "zero.h"
 
 #include <algorithm>
 #include <array>
 #include <iostream>
 
-// second.cpp
+// zero.c
