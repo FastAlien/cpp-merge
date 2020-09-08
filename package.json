@@ -28,8 +28,7 @@
     "cpp-merge": "lib/cli.js"
   },
   "dependencies": {
-    "argparse": "^2.0.1",
-    "node": "^14.8.0"
+    "argparse": "^2.0.1"
   },
   "devDependencies": {
     "@types/argparse": "^2.0.0",
