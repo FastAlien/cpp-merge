@@ -35,8 +35,8 @@ files (ex. `#include "header.hpp"`) will processed and added to output in place 
 Program will search for include files first in directory where currently processed file is located and then it will
 try to find them in additional include directory, if it was specified in program arguments (option `-i` or `--include`).
 
-Files containing `#pragma once` will be processed only once, so use this directive to avoid duplication of content of
-files in output and reducing its size.
+Files containing #pragma once will be processed only once, so use this directive to avoid duplication of content of
+files in the output and to reduce its size.
 
 After processing all included files, for each of included local header file program will try to find corresponding
 source file. If file with same base name and extension .c or .cpp exists, it will be appended to the output. Program 
