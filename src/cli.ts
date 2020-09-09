@@ -5,7 +5,8 @@ import CppFileMerger from "./CppFileMerger";
 
 const parser = new ArgumentParser({
     prog: "cpp-merge",
-    description: "A tool to produce single file from multiple C/C++ files.",
+    description: "A tool to produce single file from multiple C/C++ files. By default the produced content is " +
+        "displayed on the standard output. To store it in a file use option -o or --output.",
     add_help: true
 });
 
@@ -24,7 +25,17 @@ parser.add_argument('-s', '--source', {
     metavar: "<directory>"
 });
 
-const {file: filePath, include: includeDirectory, source: sourceDirectory} = parser.parse_args();
+parser.add_argument('-o', '--output', {
+    help: "Store output in a file, instead of displaying it on the standard output.",
+    metavar: "<file>"
+});
+
+const {
+    file: filePath,
+    include: includeDirectory,
+    source: sourceDirectory,
+    output: outputFilePath
+} = parser.parse_args();
 
 if (!fs.existsSync(filePath)) {
     console.error(`Source file "${filePath}" not found.`);
@@ -43,4 +54,9 @@ if (sourceDirectory && !fs.existsSync(sourceDirectory)) {
 
 const fileMerger = new CppFileMerger({includeDirectory, sourceDirectory});
 const content = fileMerger.parse(filePath);
-console.log(content);
+
+if (outputFilePath) {
+    fs.writeFileSync(outputFilePath, content)
+} else {
+    console.log(content);
+}
