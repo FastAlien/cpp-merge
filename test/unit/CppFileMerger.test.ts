@@ -1,12 +1,13 @@
-import CppFileMerger from "../../src/CppFileMerger";
 import fs from "fs";
+import CppFileMerger from "../../src/CppFileMerger";
+import {IncludeFileNotFoundError} from "../../src/errors";
 
 describe("Parsing source file with missing include file", () => {
     const merger = new CppFileMerger();
 
     test("Error is thrown", () => {
         expect(() => merger.parse("test/data/missingInclude/main.cpp"))
-            .toThrowError("Include file not found hello.hpp");
+            .toThrowError(IncludeFileNotFoundError);
     });
 });
 

@@ -1,8 +1,8 @@
 import path from "path";
 import fs from "fs";
 import {EOL} from "os";
-
 import CppFileParser from "./CppFileParser";
+import {IncludeFileNotFoundError} from "./errors";
 import {findFile, removeDoubleEmptyLines} from "./utils";
 
 const headerFileExtensions = [".h", ".hpp"];
@@ -50,7 +50,9 @@ export default class CppFileMerger {
         const result = this.parser.parse(fileContent);
         result.systemIncludes.forEach(include => this.systemIncludes.add(include));
         const currentDirectory = path.dirname(filePath);
-        const localIncludesContent = result.localIncludes.map(includeFilePath => this.parseIncludedFile(includeFilePath, currentDirectory));
+        const localIncludesContent = result.localIncludes.map(includeFilePath => {
+            return this.parseIncludedFile(includeFilePath, currentDirectory, filePath)
+        });
 
         if (result.processOnce) {
             this.processedOnce.add(filePath);
@@ -62,7 +64,7 @@ export default class CppFileMerger {
         ].join(EOL);
     }
 
-    private parseIncludedFile(filePath: string, currentDirectory: string): string {
+    private parseIncludedFile(filePath: string, currentDirectory: string, processedFilePath: string): string {
         const searchFilePaths: string[] = [currentDirectory];
         if (this.includeDirectory) {
             searchFilePaths.push(this.includeDirectory);
@@ -70,7 +72,7 @@ export default class CppFileMerger {
 
         const foundFilePath = findFile(filePath, searchFilePaths);
         if (!foundFilePath) {
-            throw new Error(`Include file not found ${filePath}`);
+            throw new IncludeFileNotFoundError(processedFilePath, filePath);
         }
 
         return this.parseFile(foundFilePath);
