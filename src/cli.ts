@@ -2,6 +2,7 @@
 import fs from "fs";
 import {ArgumentParser} from "argparse";
 import CppFileMerger from "./CppFileMerger";
+import {IncludeFileNotFoundError, ParseError} from "./errors";
 
 enum ErrorCode {
     InvalidArgument = 1,
@@ -81,6 +82,11 @@ try {
         process.exit(ErrorCode.WriteError);
     }
 } catch (error) {
-    console.error(`Error parsing input file: ${error.message}`);
+    if (error instanceof ParseError) {
+        const message = error instanceof IncludeFileNotFoundError ? `Include "${error.includeFile}" not found` : error.message;
+        console.error(`Error parsing file "${error.file}": ${message}`);
+    } else {
+        console.error(`Error parsing file: ${error.message}`);
+    }
     process.exit(ErrorCode.ParseError);
 }
