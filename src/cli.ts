@@ -3,7 +3,19 @@ import fs from "fs";
 import {ArgumentParser} from "argparse";
 import CppFileMerger from "./CppFileMerger";
 
-const parser = new ArgumentParser({
+enum ErrorCode {
+    InvalidArgument = 1,
+    ParseError = 2,
+    WriteError = 3
+}
+
+class CliArgumentParser extends ArgumentParser {
+    public error(error: string | Error) {
+        this.exit(ErrorCode.InvalidArgument, `Error: ${error}\n`);
+    }
+}
+
+const parser = new CliArgumentParser({
     prog: "cpp-merge",
     description: "A tool to produce single file from multiple C/C++ files. By default the produced content is " +
         "displayed on the standard output. To store it in a file use option -o or --output.",
@@ -39,24 +51,36 @@ const {
 
 if (!fs.existsSync(filePath)) {
     console.error(`Source file "${filePath}" not found.`);
-    process.exit(1);
+    process.exit(ErrorCode.InvalidArgument);
 }
 
 if (includeDirectory && !fs.existsSync(includeDirectory)) {
     console.error(`Include directory "${includeDirectory}" not found.`);
-    process.exit(1);
+    process.exit(ErrorCode.InvalidArgument);
 }
 
 if (sourceDirectory && !fs.existsSync(sourceDirectory)) {
     console.error(`Source directory "${sourceDirectory}" not found.`);
-    process.exit(1);
+    process.exit(ErrorCode.InvalidArgument);
 }
 
 const fileMerger = new CppFileMerger({includeDirectory, sourceDirectory});
-const content = fileMerger.parse(filePath);
 
-if (outputFilePath) {
-    fs.writeFileSync(outputFilePath, content)
-} else {
-    console.log(content);
+try {
+    const content = fileMerger.parse(filePath);
+
+    if (!outputFilePath) {
+        console.log(content);
+        process.exit();
+    }
+
+    try {
+        fs.writeFileSync(outputFilePath, content)
+    } catch (error) {
+        console.error(`Error writing output to file "${outputFilePath}": ${error.message}`);
+        process.exit(ErrorCode.WriteError);
+    }
+} catch (error) {
+    console.error(`Error parsing input file: ${error.message}`);
+    process.exit(ErrorCode.ParseError);
 }
