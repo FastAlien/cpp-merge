@@ -519,6 +519,11 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@tsconfig/node10@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@tsconfig/node10/-/node10-1.0.7.tgz#1eb1de36c73478a2479cc661ef5af1c16d86d606"
+  integrity sha512-aBvUmXLQbayM4w3A8TrjwrXs4DZ8iduJnuJLLRGdkWlyakCf1q6uHZJBzXoRA/huAEknG5tcUyQxN3A+In5euQ==
+
 "@types/argparse@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/argparse/-/argparse-2.0.0.tgz#df1bb55f4c3bbbb3c744a6b35f78a401d3283a89"
