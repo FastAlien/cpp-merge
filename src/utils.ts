@@ -1,6 +1,7 @@
 import {EOL} from "os";
 import path from "path";
 import fs from "fs";
+import {FileReadError} from "./errors";
 
 const doubleLineRegExp = new RegExp(`(${EOL}){2,}`, 'g');
 const doubleLineReplaceValue = `$1${EOL}`;
@@ -21,5 +22,13 @@ export function findFile(fileName: string, searchDirectories: string[]): string 
         if (fs.existsSync(searchFilePath)) {
             return searchFilePath;
         }
+    }
+}
+
+export function readFile(filePath: string): string {
+    try {
+        return fs.readFileSync(filePath, "utf-8");
+    } catch (error) {
+        throw new FileReadError(`Error reading file '${filePath}'`, filePath, error);
     }
 }

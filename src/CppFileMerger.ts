@@ -1,9 +1,8 @@
 import path from "path";
-import fs from "fs";
 import {EOL} from "os";
 import CppFileParser from "./CppFileParser";
 import {IncludeFileNotFoundError} from "./errors";
-import {findFile, removeDoubleEmptyLines} from "./utils";
+import {findFile, readFile, removeDoubleEmptyLines} from "./utils";
 
 const headerFileExtensions = [".h", ".hpp"];
 const sourceFileExtensions = [".c", ".cpp"];
@@ -46,7 +45,7 @@ export default class CppFileMerger {
             return "";
         }
 
-        const fileContent = fs.readFileSync(filePath, "utf-8");
+        const fileContent = readFile(filePath);
         const result = this.parser.parse(fileContent);
         result.systemIncludes.forEach(include => this.systemIncludes.add(include));
         const currentDirectory = path.dirname(filePath);

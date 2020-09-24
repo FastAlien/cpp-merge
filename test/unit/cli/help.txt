@@ -1,0 +1,35 @@
+cpp-merge
+
+A tool to produce single file from multiple C/C++ files. By default the produced
+content is displayed on the standard output. To store it in a file use option -o
+or --output.
+
+Syntax:
+  cpp-merge [OPTIONS] <file>
+
+Arguments:
+  file
+                Input file which will be processed. In most cases it will be
+                file with main function.
+
+Options:
+  --help
+                Show this help text.
+
+  -i <path>, --include <path>
+                Path to additional directory where header files are located.
+                Program will search for include files first in directory where
+                currently processed file is located and then in this directory.
+
+  -s <path>, --source <path>
+                Path to additional directory where source files are located.
+                After processing all included files, program will try to find
+                related source file for each of included local header files. If
+                file with same base name and extension .c or .cpp exists, it
+                will be appended to the output. Program will search first in the
+                same directory where main source file is located and then in
+                additional source directory.
+
+  -o <file>, --output <file>
+                Store output in a file, instead of displaying it on the standard
+                output.
