@@ -2,11 +2,9 @@
   "extends": "@tsconfig/node10/tsconfig.json",
   "compilerOptions": {
     "baseUrl": "src",
-    "incremental": true,
     "declaration": true,
     "sourceMap": true,
-    "outDir": "lib",
-    "tsBuildInfoFile": "./build/tsconfig.tsbuildinfo"
+    "outDir": "lib"
   },
   "include": [
     "src/**/*"
