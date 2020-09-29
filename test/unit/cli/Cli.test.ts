@@ -3,7 +3,8 @@ import os from "os";
 import {Writable} from "stream";
 import Cli from "../../../src/cli/Cli";
 import CliError, {ErrorCode} from "../../../src/cli/CliError";
-import {readFile} from "../../../src/parse/utils";
+
+const fileEncoding = "utf-8";
 
 describe("Parse incorrect arguments", () => {
     const notExistingInputFile = "nonExistingFile.cpp";
@@ -48,7 +49,7 @@ describe("Parse correct arguments", () => {
         const output = new StringWritableStream();
         const cli = new Cli(output);
         cli.run([]);
-        const helpText = readFile(helpFilePath);
+        const helpText = fs.readFileSync(helpFilePath, fileEncoding);
         expect(output.data).toBe(helpText);
     });
 
@@ -56,7 +57,7 @@ describe("Parse correct arguments", () => {
         const output = new StringWritableStream();
         const cli = new Cli(output);
         cli.run(["--help"]);
-        const helpText = readFile(helpFilePath);
+        const helpText = fs.readFileSync(helpFilePath, fileEncoding);
         expect(output.data).toBe(helpText);
     });
 
@@ -65,7 +66,7 @@ describe("Parse correct arguments", () => {
         const output = new StringWritableStream();
         const cli = new Cli(output);
         cli.run(args);
-        const expected = readFile(`${dataDirectory}/expected.cpp`);
+        const expected = fs.readFileSync(`${dataDirectory}/expected.cpp`, fileEncoding);
         expect(output.data).toStrictEqual(expected);
     });
 
@@ -75,8 +76,8 @@ describe("Parse correct arguments", () => {
         const args = ["-i", includeDirectory, "-s", sourceDirectory, "-o", outputFilePath, inputFilePath];
         const cli = new Cli();
         cli.run(args);
-        const output = readFile(outputFilePath);
-        const expected = readFile(`${dataDirectory}/expected.cpp`);
+        const output = fs.readFileSync(outputFilePath, fileEncoding);
+        const expected = fs.readFileSync(`${dataDirectory}/expected.cpp`, fileEncoding);
         expect(output).toStrictEqual(expected);
     });
 
@@ -86,8 +87,8 @@ describe("Parse correct arguments", () => {
         const args = ["-i", includeDirectory, "-s", sourceDirectory, "--output", outputFilePath, inputFilePath];
         const cli = new Cli();
         cli.run(args);
-        const output = readFile(outputFilePath);
-        const expected = readFile(`${dataDirectory}/expected.cpp`);
+        const output = fs.readFileSync(outputFilePath, fileEncoding);
+        const expected = fs.readFileSync(`${dataDirectory}/expected.cpp`, fileEncoding);
         expect(output).toStrictEqual(expected);
     });
 });
