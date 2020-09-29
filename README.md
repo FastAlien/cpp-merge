@@ -35,7 +35,9 @@ yarn link
 ```
 
 ## Usage
-This tool will produce single source file from multiple C/C++ files and display produced content on standard output.
+This tool will produce single source file from multiple C/C++ files. By default produced content is displayed on
+the standard output. To save it into a file use option `-o` or `--output`.
+
 File passed as an argument will be processed similarly to what preprocessor would do. It means all included local
 files (ex. `#include "header.hpp"`) will processed and added to output in place of the include directive.
 Program will search for include files first in directory where currently processed file is located and then in
@@ -65,9 +67,13 @@ Process `main.cpp` and display produced content on standard output:
 cpp-merge main.cpp
 ```
 
-Process `main.cpp` and redirect output to file `single.cpp`:
+Process `main.cpp` and save output to file `single.cpp`:
 ```
 cpp-merge main.cpp > single.cpp
+```
+or:
+```
+cpp-merge --output single.cpp main.cpp
 ```
 
 Specify additional include and source directory:
