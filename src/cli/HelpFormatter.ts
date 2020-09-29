@@ -1,6 +1,6 @@
 import {EOL} from "os";
+import {limitLineLength} from "../common/stringUtils";
 import {Option, Argument} from "./types";
-import {limitLineLength} from "./utils";
 
 export default class HelpFormatter {
     private readonly syntaxTitle = "Syntax";

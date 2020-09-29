@@ -1,4 +1,4 @@
-import CppFileParser from "../../src/CppFileParser";
+import CppFileParser from "../../src/parse/CppFileParser";
 import fs from "fs";
 
 const parser = new CppFileParser();

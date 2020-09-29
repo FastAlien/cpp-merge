@@ -13,30 +13,6 @@ export class TraceError extends Error {
     }
 }
 
-export class ParseError extends TraceError {
-    public readonly file: string;
-
-    public constructor(message: string, file: string, cause?: ErrorCause) {
-        super(message, cause);
-        this.file = file;
-    }
-}
-
-export class IncludeFileNotFoundError extends ParseError {
-    public readonly includeFile: string;
-
-    public constructor(file: string, includeFile: string, cause?: ErrorCause) {
-        super(`Include file '${includeFile}' not found`, file, cause);
-        this.includeFile = includeFile;
-    }
-}
-
-export class FileReadError extends ParseError {
-    public constructor(message: string, file: string, cause?: ErrorCause) {
-        super(message, file, cause);
-    }
-}
-
 export function formatErrorStack(error: Error | string): string {
     if (error instanceof TraceError && error.cause) {
         return [

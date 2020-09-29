@@ -2,8 +2,8 @@ import fs from "fs";
 import os from "os";
 import {Writable} from "stream";
 import Cli from "../../../src/cli/Cli";
-import {CliError, ErrorCode} from "../../../src/cli/error";
-import {readFile} from "../../../src/utils";
+import CliError, {ErrorCode} from "../../../src/cli/CliError";
+import {readFile} from "../../../src/parse/utils";
 
 describe("Parse incorrect arguments", () => {
     const notExistingInputFile = "nonExistingFile.cpp";

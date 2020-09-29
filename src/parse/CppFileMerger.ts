@@ -1,8 +1,9 @@
 import path from "path";
 import {EOL} from "os";
+import {removeDoubleEmptyLines} from "../common/stringUtils";
 import CppFileParser from "./CppFileParser";
 import {IncludeFileNotFoundError} from "./errors";
-import {findFile, readFile, removeDoubleEmptyLines} from "./utils";
+import {findFile, readFile} from "./utils";
 
 const headerFileExtensions = [".h", ".hpp"];
 const sourceFileExtensions = [".c", ".cpp"];

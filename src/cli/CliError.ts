@@ -1,4 +1,4 @@
-import {ErrorCause, TraceError} from "../errors";
+import {ErrorCause, TraceError} from "../common/errors";
 
 export enum ErrorCode {
     ArgumentError = 1,
@@ -7,7 +7,7 @@ export enum ErrorCode {
     UnexpectedError = 100
 }
 
-export class CliError extends TraceError {
+export default class CliError extends TraceError {
     public readonly errorCode: ErrorCode;
 
     public constructor(message: string, errorCode: ErrorCode, cause?: ErrorCause) {

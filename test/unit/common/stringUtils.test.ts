@@ -1,5 +1,5 @@
 import {EOL} from "os";
-import {limitLineLength} from "../../../src/cli/utils";
+import {limitLineLength} from "../../../src/common/stringUtils";
 
 describe("limitLineWidth", () => {
     const text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";

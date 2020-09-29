@@ -1,5 +1,5 @@
 import assert from "assert";
-import {TraceError} from "../errors";
+import {TraceError} from "../common/errors";
 import HelpFormatter from "./HelpFormatter";
 import {Argument, Option} from "./types";
 

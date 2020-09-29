@@ -1,9 +1,9 @@
 import fs from "fs";
 import {Writable} from "stream";
-import CppFileMerger from "../CppFileMerger";
-import {ParseError} from "../errors";
+import CppFileMerger from "../parse/CppFileMerger";
+import {ParseError} from "../parse/errors";
 import ArgumentParser, {ArgumentError, UnknownArgumentError, UnknownOptionError} from "./ArgumentParser";
-import {CliError, ErrorCode} from "./error";
+import CliError, {ErrorCode} from "./CliError";
 
 enum ArgumentName {
     File = "file"

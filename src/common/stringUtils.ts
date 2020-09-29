@@ -1,5 +1,12 @@
 import {EOL} from "os";
 
+const doubleLineRegExp = new RegExp(`(${EOL}){2,}`, 'g');
+const doubleLineReplaceValue = `$1${EOL}`;
+
+export function removeDoubleEmptyLines(content: string): string {
+    return content.replace(doubleLineRegExp, doubleLineReplaceValue);
+}
+
 export function limitLineLength(text: string, lineLength: number): string[] {
     if (lineLength <= 0 || text.length <= lineLength) {
         return [text];
