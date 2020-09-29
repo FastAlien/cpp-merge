@@ -40,7 +40,7 @@ export default class HelpFormatter {
         return help;
     }
 
-    public formatSyntaxHelp(programName: string, args: Argument[], options: Option[]) {
+    public formatSyntaxHelp(programName: string, args: Argument[], options: Option[]): string {
         let help = this.smallMargin;
         help += programName;
         if (options.length > 0) {

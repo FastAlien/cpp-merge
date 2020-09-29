@@ -55,11 +55,11 @@ export default class ArgumentParser {
         this.description = params.description;
     }
 
-    public addArgument(argument: Argument) {
+    public addArgument(argument: Argument): void {
         this.arguments.push(argument);
     }
 
-    public addOption(option: Option) {
+    public addOption(option: Option): void {
         this.options.push(option);
     }
 

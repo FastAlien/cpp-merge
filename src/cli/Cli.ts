@@ -74,7 +74,7 @@ export default class Cli {
         });
     }
 
-    public run(args: string[]) {
+    public run(args: string[]): void {
         if (args.length === 0) {
             this.printHelp();
             return;

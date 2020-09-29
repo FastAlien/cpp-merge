@@ -100,6 +100,7 @@ class StringWritableStream extends Writable {
         super();
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void) {
         this.data = this.data + chunk.toString();
         callback();
