@@ -67,13 +67,9 @@ Process `main.cpp` and display produced content on standard output:
 cpp-merge main.cpp
 ```
 
-Process `main.cpp` and save output to file `single.cpp`:
+Process `main.cpp` and save output to file `output.cpp`:
 ```
-cpp-merge main.cpp > single.cpp
-```
-or:
-```
-cpp-merge --output single.cpp main.cpp
+cpp-merge --output output.cpp main.cpp
 ```
 
 Specify additional include and source directory:
