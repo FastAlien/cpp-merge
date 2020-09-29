@@ -10,7 +10,8 @@
   "author": "RandomVoid (https://github.com/RandomVoid)",
   "license": "MIT",
   "files": [
-    "lib/**/*"
+    "lib/**/*.js",
+    "lib/**/*.d.ts"
   ],
   "main": "lib/cli.js",
   "types": "lib/cli.d.ts",
