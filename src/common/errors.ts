@@ -13,7 +13,7 @@ export class TraceError extends Error {
   }
 }
 
-export function formatErrorStack(error: Error | string): string {
+export function formatErrorStack(error: Error | string | unknown): string {
   if (error instanceof TraceError && error.cause) {
     return [
       error.stack || error.message,
@@ -26,5 +26,5 @@ export function formatErrorStack(error: Error | string): string {
     return error.stack || error.message;
   }
 
-  return error || '';
+  return `${error}`;
 }

@@ -21,6 +21,7 @@ export function readFile(filePath: string): string {
   try {
     return fs.readFileSync(filePath, "utf-8");
   } catch (error) {
-    throw new FileReadError(`Error reading file '${filePath}'`, filePath, error);
+     const cause = error instanceof Error ? error : undefined;
+     throw new FileReadError(`Error reading file '${filePath}'`, filePath, cause);
   }
 }

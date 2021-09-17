@@ -182,7 +182,8 @@ export default class Cli {
     try {
       fs.writeFileSync(outputFilePath, content)
     } catch (error) {
-      throw new CliError(`Error writing output to file '${outputFilePath}': ${error.message}`, ErrorCode.WriteError);
+      const causeMessage = error instanceof Error ? error.message : 'Unknown error';
+      throw new CliError(`Error writing output to file '${outputFilePath}': ${causeMessage}`, ErrorCode.WriteError);
     }
   }
 }
