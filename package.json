@@ -1,6 +1,6 @@
 {
   "name": "cpp-merge",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Command line tool to produce single source file from multiple C/C++ files",
   "repository": {
     "type": "git",
