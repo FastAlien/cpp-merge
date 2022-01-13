@@ -49,14 +49,15 @@ export default class CppFileMerger {
     const fileContent = readFile(filePath);
     const result = this.parser.parse(fileContent);
     result.systemIncludes.forEach(include => this.systemIncludes.add(include));
-    const currentDirectory = path.dirname(filePath);
-    const localIncludesContent = result.localIncludes.map(includeFilePath => {
-      return this.parseIncludedFile(includeFilePath, currentDirectory, filePath)
-    });
 
     if (result.processOnce) {
       this.processedOnce.add(filePath);
     }
+
+    const currentDirectory = path.dirname(filePath);
+    const localIncludesContent = result.localIncludes.map(includeFilePath => {
+      return this.parseIncludedFile(includeFilePath, currentDirectory, filePath)
+    });
 
     return [
       ...localIncludesContent,

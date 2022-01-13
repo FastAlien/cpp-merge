@@ -38,3 +38,14 @@ describe("Merging source files in subdirectories", () => {
     expect(content).toEqual(expected);
   });
 });
+
+describe("Merging files with circular dependencies", () => {
+  const dataDirectory = "test/data/circularDependencies";
+  const merger = new CppFileMerger();
+  const content = merger.parse(`${dataDirectory}/main.cpp`);
+
+  test("Generated content equals expected", () => {
+    const expected = fs.readFileSync(`${dataDirectory}/expected.cpp`, "utf-8");
+    expect(content).toEqual(expected);
+  });
+});
