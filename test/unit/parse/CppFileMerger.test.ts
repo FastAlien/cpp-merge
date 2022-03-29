@@ -49,3 +49,16 @@ describe("Merging files with circular dependencies", () => {
     expect(content).toEqual(expected);
   });
 });
+
+describe("Merging source with header including another header from include directory", () => {
+  const dataDirectory = "test/data/headerIncludeHeaderInSubdirectory";
+  const merger = new CppFileMerger({
+    includeDirectory: `${dataDirectory}/include`
+  });
+  const content = merger.parse(`${dataDirectory}/main.cpp`);
+
+  test("Generated content equals expected", () => {
+    const expected = fs.readFileSync(`${dataDirectory}/expected.cpp`, "utf-8");
+    expect(content).toEqual(expected);
+  });
+});

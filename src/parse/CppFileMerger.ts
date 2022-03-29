@@ -36,7 +36,9 @@ export default class CppFileMerger {
       systemIncludesContent,
       content,
       sourceFilesContent
-    ].join(EOL);
+    ]
+      .filter(content => !!content)
+      .join(EOL);
 
     return removeDoubleEmptyLines(finalContent);
   }
