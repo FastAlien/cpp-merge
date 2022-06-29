@@ -16,7 +16,7 @@
   "main": "lib/cli.js",
   "types": "lib/cli.d.ts",
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "scripts": {
     "build": "tsc",
