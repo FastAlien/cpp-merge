@@ -7,13 +7,13 @@ contests that require submitting a solution as a single source file.
 
 #### Prerequisites
 
-* node
+* Node.js
 * npm
-* yarn (optional)
+* Yarn (optional)
 
 #### Installation from npm
 
-```
+```shell
 npm install -g cpp-merge
 ```
 
@@ -21,26 +21,34 @@ npm install -g cpp-merge
 
 ##### Clone git repository
 
-```
-git clone git@github.com:RandomVoid/cpp-merge.git
+```shell
+git clone git@github.com:FastAlien/cpp-merge.git
 ```
 
-##### Build and link package
+##### Build
+
+Go to the project directory and run the following commands.
 
 Using npm:
 
-```
-npm install
+```shell
+npm ci
 npm run build
-npm link
 ```
 
-Or using yarn:
+Using Yarn:
 
-```
-yarn
+```shell
+yarn install
 yarn build
-yarn link
+```
+
+##### Link package
+
+Go to the project directory and run the following command:
+
+```shell
+npm -g link
 ```
 
 ## Usage
@@ -68,7 +76,7 @@ alphabetically. Any of the processed header and source files will not be changed
 
 Display the build-in help:
 
-```
+```shell
 cpp-merge --help
 ```
 
@@ -76,18 +84,18 @@ cpp-merge --help
 
 Process `main.cpp` and display produced content on the standard output:
 
-```
+```shell
 cpp-merge main.cpp
 ```
 
 Process `main.cpp` and save output to file `output.cpp`:
 
-```
+```shell
 cpp-merge --output output.cpp main.cpp
 ```
 
 Specify additional include and source directory:
 
-```
+```shell
 cpp-merge --include ../include --source ../src main.cpp
 ```
