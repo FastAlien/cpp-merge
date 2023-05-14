@@ -1,4 +1,4 @@
-import {TraceError} from "../common/TraceError";
+import {TraceError} from "common/TraceError";
 
 export class ArgumentError extends TraceError {
   public readonly argument: string;

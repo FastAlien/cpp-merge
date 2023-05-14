@@ -1,6 +1,6 @@
 import path from "path";
 import {EOL} from "os";
-import {removeDoubleEmptyLines} from "../common/StringUtils";
+import {removeDoubleEmptyLines} from "common/StringUtils";
 import CppFileParser from "./CppFileParser";
 import {IncludeFileNotFoundError} from "./Errors";
 import {findFile, readFile} from "./FileUtils";
