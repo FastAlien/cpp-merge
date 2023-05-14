@@ -1,4 +1,5 @@
-import { ErrorCause, TraceError } from "../common/errors";
+import {TraceError} from "../common/TraceError";
+import {ErrorCause} from "../common/Types";
 
 export class ParseError extends TraceError {
   public readonly file: string;

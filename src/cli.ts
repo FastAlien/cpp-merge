@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-import { EOL } from "os";
-import { argv, exit, stderr } from "process";
+import {EOL} from "os";
+import {argv, exit, stderr} from "process";
 import Cli from "./cli/Cli";
-import CliError, { ErrorCode } from "./cli/CliError";
-import { formatErrorStack } from "./common/errors";
+import CliError, {ErrorCode} from "./cli/CliError";
+
+import {formatErrorStack} from "./common/ErrorUtils";
 
 const unexpectedErrorMessage = `Sorry, an unexpected error has occurred :-(
 It would be great if you spend few minutes and report it at:

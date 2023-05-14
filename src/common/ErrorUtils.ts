@@ -1,17 +1,5 @@
-import { EOL } from "os";
-
-export type ErrorCause = Error | string;
-
-export class TraceError extends Error {
-  public readonly cause?: Error;
-
-  public constructor(message: string, cause?: ErrorCause) {
-    super(message);
-    if (cause) {
-      this.cause = cause instanceof Error ? cause : new Error(cause);
-    }
-  }
-}
+import {EOL} from "os";
+import {TraceError} from "./TraceError";
 
 export function formatErrorStack(error: Error | string | unknown): string {
   if (error instanceof TraceError && error.cause) {

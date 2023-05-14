@@ -1,8 +1,8 @@
 import fs from "fs";
 import os from "os";
-import { Writable } from "stream";
+import {Writable} from "stream";
 import Cli from "../../../src/cli/Cli";
-import CliError, { ErrorCode } from "../../../src/cli/CliError";
+import CliError, {ErrorCode} from "../../../src/cli/CliError";
 
 const fileEncoding = "utf-8";
 

@@ -1,12 +1,8 @@
-import ArgumentParser, {
-  OptionArgumentExpectedError,
-  ParseResult,
-  UnknownArgumentError,
-  UnknownOptionError
-} from "../../../src/cli/ArgumentParser";
+import ArgumentParser, {ParseResult} from "../../../src/cli/ArgumentParser";
+import {OptionArgumentExpectedError, UnknownArgumentError, UnknownOptionError} from "../../../src/cli/Errors";
 
 describe("ArgumentParser with one argument", () => {
-  const parser = new ArgumentParser({ programName: "test", description: "Test application" });
+  const parser = new ArgumentParser({programName: "test", description: "Test application"});
   parser.addArgument({
     name: "file",
     description: "Input file"
@@ -20,7 +16,7 @@ describe("ArgumentParser with one argument", () => {
   test("When parsing one argument, then result contains argument with passed value", () => {
     const file = "input.cpp";
     const expected: ParseResult = {
-      arguments: { file: file },
+      arguments: {file: file},
       options: {}
     };
     expect(parser.parseArguments([file])).toEqual(expected);
@@ -32,7 +28,7 @@ describe("ArgumentParser with one argument", () => {
 });
 
 describe("ArgumentParser with argument without value", () => {
-  const parser = new ArgumentParser({ programName: "test", description: "Test application" });
+  const parser = new ArgumentParser({programName: "test", description: "Test application"});
   parser.addOption({
     name: "help",
     options: ["-h", "--help"],
@@ -56,12 +52,12 @@ describe("ArgumentParser with argument without value", () => {
 });
 
 describe("ArgumentParser with one option with value", () => {
-  const parser = new ArgumentParser({ programName: "test", description: "Test application" });
+  const parser = new ArgumentParser({programName: "test", description: "Test application"});
   parser.addOption({
     name: "include",
     options: ["-i", "--include"],
     description: "Path to additional directory where header files are located.",
-    value: { name: "path" }
+    value: {name: "path"}
   });
 
   test("When parsing option without argument, then OptionArgumentExpectedError is thrown", () => {
@@ -78,7 +74,7 @@ describe("ArgumentParser with one option with value", () => {
     const includeDirectory = "some/path/to/directory";
     const expected: ParseResult = {
       arguments: {},
-      options: { include: includeDirectory }
+      options: {include: includeDirectory}
     };
     expect(parser.parseArguments(["-i", includeDirectory])).toEqual(expected);
     expect(parser.parseArguments(["--include", includeDirectory])).toEqual(expected);
@@ -86,7 +82,7 @@ describe("ArgumentParser with one option with value", () => {
 });
 
 describe("ArgumentParser with argument and option", () => {
-  const parser = new ArgumentParser({ programName: "test", description: "Test application" });
+  const parser = new ArgumentParser({programName: "test", description: "Test application"});
   parser.addArgument({
     name: "file",
     description: "Input file"
@@ -96,18 +92,18 @@ describe("ArgumentParser with argument and option", () => {
     name: "include",
     options: ["-i", "--include"],
     description: "Path to additional directory where header files are located.",
-    value: { name: "path" }
+    value: {name: "path"}
   });
 
   test("When parsing empty arguments and options, then arguments and options in result are empty", () => {
-    const expected: ParseResult = { arguments: {}, options: {} };
+    const expected: ParseResult = {arguments: {}, options: {}};
     expect(parser.parseArguments([])).toEqual(expected);
   });
 
   test("When parsing one argument, then result contains argument with passed value", () => {
     const file = "input.cpp";
     const expected: ParseResult = {
-      arguments: { file: file },
+      arguments: {file: file},
       options: {}
     };
     expect(parser.parseArguments([file])).toEqual(expected);
@@ -126,8 +122,8 @@ describe("ArgumentParser with argument and option", () => {
     const file = "input.cpp";
     const includeDirectory = "some/path/to/directory";
     const expected: ParseResult = {
-      arguments: { file: file },
-      options: { include: includeDirectory }
+      arguments: {file: file},
+      options: {include: includeDirectory}
     };
     expect(parser.parseArguments(["-i", includeDirectory, file])).toEqual(expected);
     expect(parser.parseArguments(["--include", includeDirectory, file])).toEqual(expected);

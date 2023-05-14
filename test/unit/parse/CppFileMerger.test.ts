@@ -1,6 +1,6 @@
 import fs from "fs";
 import CppFileMerger from "../../../src/parse/CppFileMerger";
-import { IncludeFileNotFoundError } from "../../../src/parse/errors";
+import {IncludeFileNotFoundError} from "../../../src/parse/Errors";
 
 describe("Parsing source file with missing include file", () => {
   const merger = new CppFileMerger();
