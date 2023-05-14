@@ -1,9 +1,10 @@
 import fs from "fs";
-import { Writable } from "stream";
+import {Writable} from "stream";
 import CppFileMerger from "../parse/CppFileMerger";
-import { ParseError } from "../parse/errors";
-import ArgumentParser, { ArgumentError, UnknownArgumentError, UnknownOptionError } from "./ArgumentParser";
-import CliError, { ErrorCode } from "./CliError";
+import {ParseError} from "../parse/Errors";
+import ArgumentParser from "./ArgumentParser";
+import CliError, {ErrorCode} from "./CliError";
+import {ArgumentError, UnknownArgumentError, UnknownOptionError} from "./Errors";
 
 enum ArgumentName {
   File = "file"
@@ -53,7 +54,7 @@ export default class Cli {
       options: ["-i", "--include"],
       description: "Path to additional directory where header files are located. Program will search for include " +
         "files first in directory where currently processed file is located and then in this directory.",
-      value: { name: "path" }
+      value: {name: "path"}
     });
 
     this.argumentParser.addOption({
@@ -63,14 +64,14 @@ export default class Cli {
         "program will try to find related source file for each of included local header files. If file with same " +
         "base name and extension .c or .cpp exists, it will be appended to the output. Program will search first " +
         "in the same directory where main source file is located and then in additional source directory.",
-      value: { name: "path" }
+      value: {name: "path"}
     });
 
     this.argumentParser.addOption({
       name: OptionName.Output,
       options: ["-o", "--output"],
       description: "Store output in a file, instead of displaying it on the standard output.",
-      value: { name: "file" }
+      value: {name: "file"}
     });
   }
 
@@ -81,7 +82,7 @@ export default class Cli {
     }
 
     try {
-      const { help, inputFilePath, includeDirectory, sourceDirectory, outputFilePath } = this.parseArguments(args);
+      const {help, inputFilePath, includeDirectory, sourceDirectory, outputFilePath} = this.parseArguments(args);
       if (help) {
         this.printHelp();
         return;
@@ -144,7 +145,7 @@ export default class Cli {
       this.validateSourceDirectory(sourceDirectory);
     }
 
-    const fileMerger = new CppFileMerger({ includeDirectory, sourceDirectory });
+    const fileMerger = new CppFileMerger({includeDirectory, sourceDirectory});
     return fileMerger.parse(inputFilePath);
   }
 

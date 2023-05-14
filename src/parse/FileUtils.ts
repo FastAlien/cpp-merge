@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import { FileReadError } from "./errors";
+import {FileReadError} from "./Errors";
 
 /**
  * Searches for file in specified directories.
@@ -21,7 +21,7 @@ export function readFile(filePath: string): string {
   try {
     return fs.readFileSync(filePath, "utf-8");
   } catch (error) {
-     const cause = error instanceof Error ? error : undefined;
-     throw new FileReadError(`Error reading file '${filePath}'`, filePath, cause);
+    const cause = error instanceof Error ? error : undefined;
+    throw new FileReadError(`Error reading file '${filePath}'`, filePath, cause);
   }
 }

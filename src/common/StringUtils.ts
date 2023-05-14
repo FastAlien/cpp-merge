@@ -1,4 +1,4 @@
-import { EOL } from "os";
+import {EOL} from "os";
 
 const doubleLineRegExp = new RegExp(`(${EOL}){2,}`, 'g');
 const doubleLineReplaceValue = `$1${EOL}`;
