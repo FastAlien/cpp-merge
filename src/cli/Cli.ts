@@ -1,7 +1,7 @@
 import fs from "fs";
 import {Writable} from "stream";
-import CppFileMerger from "../parse/CppFileMerger";
-import {ParseError} from "../parse/Errors";
+import CppFileMerger from "parse/CppFileMerger";
+import {ParseError} from "parse/Errors";
 import ArgumentParser from "./ArgumentParser";
 import CliError, {ErrorCode} from "./CliError";
 import {ArgumentError, UnknownArgumentError, UnknownOptionError} from "./Errors";

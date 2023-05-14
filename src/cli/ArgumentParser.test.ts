@@ -1,5 +1,5 @@
-import ArgumentParser, {ParseResult} from "../../../src/cli/ArgumentParser";
-import {OptionArgumentExpectedError, UnknownArgumentError, UnknownOptionError} from "../../../src/cli/Errors";
+import ArgumentParser, {ParseResult} from "./ArgumentParser";
+import {OptionArgumentExpectedError, UnknownArgumentError, UnknownOptionError} from "./Errors";
 
 describe("ArgumentParser with one argument", () => {
   const parser = new ArgumentParser({programName: "test", description: "Test application"});

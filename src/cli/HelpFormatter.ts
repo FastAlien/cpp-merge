@@ -1,5 +1,5 @@
 import {EOL} from "os";
-import {limitLineLength} from "../common/StringUtils";
+import {limitLineLength} from "common/StringUtils";
 import {Argument, Option} from "./Types";
 
 export default class HelpFormatter {
