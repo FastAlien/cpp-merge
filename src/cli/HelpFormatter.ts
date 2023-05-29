@@ -1,6 +1,6 @@
-import { EOL } from "os";
-import { limitLineLength } from "../common/stringUtils";
-import { Option, Argument } from "./types";
+import {EOL} from "os";
+import {limitLineLength} from "common/StringUtils";
+import {Argument, Option} from "./Types";
 
 export default class HelpFormatter {
   private readonly syntaxTitle = "Syntax";
@@ -33,13 +33,6 @@ export default class HelpFormatter {
     return help;
   }
 
-  private formatSectionTitle(title: string) {
-    let help = EOL;
-    help += `${title}:`;
-    help += EOL;
-    return help;
-  }
-
   public formatSyntaxHelp(programName: string, args: Argument[], options: Option[]): string {
     let help = this.smallMargin;
     help += programName;
@@ -55,6 +48,36 @@ export default class HelpFormatter {
     return help;
   }
 
+  public formatArgumentHelp(argument: Argument): string {
+    let help = this.smallMargin;
+    help += argument.valueName || argument.name;
+    help += EOL;
+    help += this.formatDescription(argument.description);
+    return help;
+  }
+
+  public formatOptionHelp(option: Option): string {
+    let help = this.smallMargin;
+    help += option.options.map(opt => {
+      let optionHelp = opt;
+      if (option.value) {
+        optionHelp += ` <${option.value.name}>`;
+      }
+      return optionHelp;
+    }).join(", ");
+
+    help += EOL;
+    help += this.formatDescription(option.description);
+    return help;
+  }
+
+  private formatSectionTitle(title: string) {
+    let help = EOL;
+    help += `${title}:`;
+    help += EOL;
+    return help;
+  }
+
   private formatArgumentsHelp(args: Argument[]): string {
     let help = this.formatSectionTitle(this.argumentsTitle);
     let separator = "";
@@ -63,14 +86,6 @@ export default class HelpFormatter {
       help += this.formatArgumentHelp(argument);
       separator = EOL;
     }
-    return help;
-  }
-
-  public formatArgumentHelp(argument: Argument): string {
-    let help = this.smallMargin;
-    help += argument.valueName || argument.name;
-    help += EOL;
-    help += this.formatDescription(argument.description);
     return help;
   }
 
@@ -93,21 +108,6 @@ export default class HelpFormatter {
       help += this.formatOptionHelp(option);
       separator = EOL;
     }
-    return help;
-  }
-
-  public formatOptionHelp(option: Option): string {
-    let help = this.smallMargin;
-    help += option.options.map(opt => {
-      let optionHelp = opt;
-      if (option.value) {
-        optionHelp += ` <${option.value.name}>`;
-      }
-      return optionHelp;
-    }).join(", ");
-
-    help += EOL;
-    help += this.formatDescription(option.description);
     return help;
   }
 }

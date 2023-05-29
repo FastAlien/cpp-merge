@@ -1,13 +1,13 @@
 {
   "name": "cpp-merge",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Command line tool to produce single source file from multiple C/C++ files",
   "repository": {
     "type": "git",
-    "url": "git@github.com:RandomVoid/cpp-merge.git"
+    "url": "git@github.com:FastAlien/cpp-merge.git"
   },
-  "homepage": "https://github.com/RandomVoid/cpp-merge",
-  "author": "RandomVoid (https://github.com/RandomVoid)",
+  "homepage": "https://github.com/FastAlien/cpp-merge",
+  "author": "FastAlien (https://github.com/FastAlien)",
   "license": "MIT",
   "files": [
     "lib/**/*.js",
@@ -24,10 +24,7 @@
     "test": "jest --coverage --coverageReporters=text",
     "prepublishOnly": "yarn build && chmod +x lib/cli.js && yarn lint && yarn test"
   },
-  "bin": {
-    "cpp-merge": "lib/cli.js"
-  },
-  "dependencies": {},
+  "bin": "lib/cli.js",
   "devDependencies": {
     "@tsconfig/node10": "^1.0.8",
     "@types/jest": "^27.0.1",
@@ -48,5 +45,6 @@
     "merge",
     "single",
     "source"
-  ]
+  ],
+  "packageManager": "yarn@3.5.1"
 }

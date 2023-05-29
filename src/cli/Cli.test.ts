@@ -1,8 +1,8 @@
 import fs from "fs";
 import os from "os";
-import { Writable } from "stream";
-import Cli from "../../../src/cli/Cli";
-import CliError, { ErrorCode } from "../../../src/cli/CliError";
+import {Writable} from "stream";
+import Cli from "./Cli";
+import CliError, {ErrorCode} from "./CliError";
 
 const fileEncoding = "utf-8";
 
@@ -43,7 +43,7 @@ describe("Parse correct arguments", () => {
   const includeDirectory = `${dataDirectory}/include`;
   const sourceDirectory = `${dataDirectory}/src`;
   const inputFilePath = `${dataDirectory}/main.cpp`;
-  const helpFilePath = "test/unit/cli/help.txt";
+  const helpFilePath = "test/data/cli/help.txt";
 
   test("When no arguments and options are passed, then help text is displayed on stdout", () => {
     const output = new StringWritableStream();

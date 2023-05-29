@@ -1,34 +1,7 @@
 import assert from "assert";
-import { TraceError } from "../common/errors";
 import HelpFormatter from "./HelpFormatter";
-import { Argument, Option } from "./types";
-
-export class ArgumentError extends TraceError {
-  public readonly argument: string;
-
-  public constructor(message: string, argument: string) {
-    super(message);
-    this.argument = argument;
-  }
-}
-
-export class UnknownArgumentError extends ArgumentError {
-  public constructor(argument: string, message = `Unknown argument '${argument}'`) {
-    super(message, argument);
-  }
-}
-
-export class UnknownOptionError extends ArgumentError {
-  public constructor(argument: string, message = `Unknown option '${argument}'`) {
-    super(message, argument);
-  }
-}
-
-export class OptionArgumentExpectedError extends ArgumentError {
-  public constructor(option: string, message = `Option '${option}' requires a value`) {
-    super(message, option);
-  }
-}
+import {Argument, Option} from "./Types";
+import {OptionArgumentExpectedError, UnknownArgumentError, UnknownOptionError} from "./Errors";
 
 export type ParseResult = {
   arguments: ParsedArguments;
@@ -73,7 +46,7 @@ export default class ArgumentParser {
       const argument = argumentsToParse.shift();
       assert(argument);
       if (this.isOption(argument)) {
-        const { name, value } = this.parseOption(argument, argumentsToParse);
+        const {name, value} = this.parseOption(argument, argumentsToParse);
         parsedOptions[name] = value;
         continue;
       }
@@ -93,6 +66,10 @@ export default class ArgumentParser {
     };
   }
 
+  public formatHelp(): string {
+    return this.helpFormatter.formatHelp(this.programName, this.description, this.arguments, this.options);
+  }
+
   private isOption(argument: string) {
     return argument.startsWith("-");
   }
@@ -104,23 +81,19 @@ export default class ArgumentParser {
     }
 
     if (!option.value) {
-      return { name: option.name, value: "" };
+      return {name: option.name, value: ""};
     }
 
     const value = args.shift();
     if (!value) {
       throw new OptionArgumentExpectedError(argument);
     }
-    return { name: option.name, value: value };
+    return {name: option.name, value: value};
   }
 
   private findOption(option: string): Option | undefined {
     return this.options.find((opt: Option) => {
       return opt.options.find(o => o === option);
     });
-  }
-
-  public formatHelp(): string {
-    return this.helpFormatter.formatHelp(this.programName, this.description, this.arguments, this.options);
   }
 }

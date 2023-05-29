@@ -1,12 +1,12 @@
 {
   "extends": "@tsconfig/node10/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "declaration": true,
     "sourceMap": true,
     "outDir": "lib"
   },
-  "include": [
-    "src/**/*"
+  "exclude": [
+    "**/*.test.ts"
   ]
 }
