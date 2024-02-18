@@ -31,8 +31,13 @@ export default class CppFileMerger {
       .sort((a, b) => a.localeCompare(b))
       .map(file => `#include <${file}>`)
       .join(EOL);
+	const systemPragmas = Array.from(this.parser.getSystemPragmas())
+	  .sort((a, b) => a.localeCompare(b))
+	  .map(setting => `#pragma ${setting}`)
+	  .join(EOL);
 
     const finalContent = [
+      systemPragmas,
       systemIncludesContent,
       content,
       sourceFilesContent

@@ -11,6 +11,12 @@ export default class CppFileParser {
   private static readonly localIncludeRegExp = /^#include "([^"]+)"/;
   private static readonly systemIncludeRegExp = /^#include <([^>]+)>/;
   private static readonly pragmaOnceRegExp = /^#pragma once/;
+  private static readonly pragmaRegExp = /^#pragma (.+)/;
+  private systemPragmas = new Set<string>();
+
+  public getSystemPragmas(): Set<string> {
+    return this.systemPragmas;
+  }
 
   public parse(fileContent: string): ParseResult {
     const fileLines = fileContent.split(EOL);
@@ -25,6 +31,12 @@ export default class CppFileParser {
         pragmaOnceFound = true;
         continue;
       }
+
+	  const systemPragma = CppFileParser.pragmaRegExp.exec(line)?.[1];
+	  if (systemPragma) {
+		  this.systemPragmas.add(systemPragma);
+		  continue;
+	  }
 
       const systemInclude = CppFileParser.systemIncludeRegExp.exec(line)?.[1];
       if (systemInclude) {
