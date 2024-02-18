@@ -4,9 +4,10 @@
     "baseUrl": "./src",
     "declaration": true,
     "sourceMap": true,
-    "outDir": "lib"
+    "outDir": "./lib"
   },
   "exclude": [
-    "**/*.test.ts"
+    "**/*.test.ts",
+    "./lib/**/*"
   ]
 }
