@@ -65,7 +65,7 @@ Files containing `#pragma once` will be processed only once, so use this directi
 files in the output and to reduce its size.
 
 After processing all included files, the program will try to find related source files for each of included local header
-files. If a file with the same base name and extension .c or .cpp exists, it will be appended to the output. Program
+files that contain a `#pragma once` declaration. If a file with the same base name and extension .c or .cpp exists, it will be appended to the output. Program
 will search first in the same directory where the main source file is located and then in an additional source
 directory, if it was specified in program arguments (option `-s` or `--source`). If the header was included using
 relative path ex. `#include "one/two/three.hpp"` the program will search for `three.c` or `three.cpp` in `one/two/`
